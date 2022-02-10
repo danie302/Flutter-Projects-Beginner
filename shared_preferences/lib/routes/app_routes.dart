@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/models/models.dart';
-import 'package:shared_preferences/screens/screens.dart';
+import 'package:user_preferences/models/models.dart';
+import 'package:user_preferences/screens/screens.dart';
 
 class AppRoutes {
   static const initialRoute = HomeScreen.routeName;

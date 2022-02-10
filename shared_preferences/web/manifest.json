@@ -1,6 +1,6 @@
 {
-    "name": "shared_preferences",
-    "short_name": "shared_preferences",
+    "name": "user_preferences",
+    "short_name": "user_preferences",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

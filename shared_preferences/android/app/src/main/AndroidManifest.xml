@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shared_preferences">
+    package="com.example.user_preferences">
    <application
-        android:label="shared_preferences"
+        android:label="user_preferences"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

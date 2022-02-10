@@ -1,1 +1,1 @@
-export 'package:shared_preferences/models/route.dart';
+export 'package:user_preferences/models/route.dart';

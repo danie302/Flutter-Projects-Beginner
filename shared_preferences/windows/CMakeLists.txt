@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(shared_preferences LANGUAGES CXX)
+project(user_preferences LANGUAGES CXX)
 
-set(BINARY_NAME "shared_preferences")
+set(BINARY_NAME "user_preferences")
 
 cmake_policy(SET CMP0063 NEW)
 

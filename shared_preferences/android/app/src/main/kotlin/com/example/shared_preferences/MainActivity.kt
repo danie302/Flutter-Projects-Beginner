@@ -1,4 +1,4 @@
-package com.example.shared_preferences
+package com.example.user_preferences
 
 import io.flutter.embedding.android.FlutterActivity
 
