@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:products_app/styles/styles.dart';
 import 'package:products_app/widgets/widgets.dart';
+import 'package:products_app/screens/screens.dart';
+import 'package:products_app/provider/auth_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = 'login';
@@ -28,6 +31,15 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 30),
                     const Text('Form'),
                     const _LoginForm(),
+                    const SizedBox(height: 50),
+                    const Text(
+                      'Create new account',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),
@@ -45,12 +57,16 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+
     return Form(
+      key: authProvider.formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(children: [
         TextFormField(
           autocorrect: false,
           keyboardType: TextInputType.emailAddress,
+          onChanged: (value) => authProvider.email = value,
           decoration: InputDecorations.authInputDecoration(
             icon: Icons.alternate_email_sharp,
             hintText: 'jhondoe@gmail.com',
@@ -69,6 +85,7 @@ class _LoginForm extends StatelessWidget {
           obscureText: true,
           autocorrect: false,
           keyboardType: TextInputType.emailAddress,
+          onChanged: (value) => authProvider.password = value,
           decoration: InputDecorations.authInputDecoration(
             icon: Icons.lock_outline_sharp,
             hintText: '********',
@@ -82,16 +99,26 @@ class _LoginForm extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         MaterialButton(
-          onPressed: () {},
+          onPressed: authProvider.isLoading
+              ? null
+              : () async {
+                  FocusScope.of(context).unfocus();
+                  if (!authProvider.isValidForm()) return;
+                  authProvider.isLoading = true;
+                  await Future.delayed(const Duration(seconds: 2));
+                  authProvider.isLoading = false;
+                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                },
+          disabledColor: Colors.grey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           color: Colors.deepPurple,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
             child: Text(
-              'Login',
-              style: TextStyle(color: Colors.white),
+              authProvider.isLoading ? 'Loading...' : 'Login',
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),

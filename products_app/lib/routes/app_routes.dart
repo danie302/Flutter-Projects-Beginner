@@ -4,7 +4,7 @@ import 'package:products_app/models/models.dart';
 import 'package:products_app/screens/screens.dart';
 
 class AppRoutes {
-  static const initialRoute = LoginScreen.routeName;
+  static const initialRoute = HomeScreen.routeName;
 
   static final routesList = <RouteScreen>[
     RouteScreen(routeName: HomeScreen.routeName, screen: const HomeScreen()),

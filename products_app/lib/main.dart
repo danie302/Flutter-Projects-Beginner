@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_app/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'package:products_app/routes/app_routes.dart';
@@ -8,9 +9,8 @@ void main() => {
       runApp(
         MultiProvider(
           providers: [
-            ChangeNotifierProvider(
-              create: (_) => ThemeProvider(),
-            ),
+            ChangeNotifierProvider(create: (_) => ThemeProvider()),
+            ChangeNotifierProvider(create: (_) => AuthProvider())
           ],
           child: const MyApp(),
         ),
