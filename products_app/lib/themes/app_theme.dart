@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color primary = Colors.blueAccent;
+  static const Color primary = Colors.indigo;
+  static final Color warning = Colors.yellow[800]!;
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary,

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class InputDecorations {
   static InputDecoration authInputDecoration({
+    IconData? icon,
     required String labelText,
     required String hintText,
-    required IconData icon,
   }) {
     return InputDecoration(
       labelText: labelText,
@@ -18,10 +18,12 @@ class InputDecorations {
       labelStyle: const TextStyle(
         color: Colors.deepPurple,
       ),
-      prefixIcon: Icon(
-        icon,
-        color: Colors.deepPurple,
-      ),
+      prefixIcon: icon != null
+          ? Icon(
+              icon,
+              color: Colors.deepPurple,
+            )
+          : null,
     );
   }
 }

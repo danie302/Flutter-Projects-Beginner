@@ -9,6 +9,8 @@ class AppRoutes {
   static final routesList = <RouteScreen>[
     RouteScreen(routeName: HomeScreen.routeName, screen: const HomeScreen()),
     RouteScreen(routeName: LoginScreen.routeName, screen: const LoginScreen()),
+    RouteScreen(
+        routeName: ProductScreen.routeName, screen: const ProductScreen()),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {
