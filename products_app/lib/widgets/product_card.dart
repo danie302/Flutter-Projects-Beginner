@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:products_app/models/models.dart';
 import 'package:products_app/themes/app_theme.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key}) : super(key: key);
+  final Product product;
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +18,15 @@ class ProductCard extends StatelessWidget {
         decoration: _cardBorder(),
         child: Stack(
           alignment: Alignment.bottomCenter,
-          children: const [
-            BackgroundImg(),
-            NotAvailable(),
-            ProductInfo(),
-            PriceTag(),
+          children: [
+            BackgroundImg(
+              img: product.picture,
+            ),
+            if (!product.available) const NotAvailable(),
+            ProductInfo(
+              product: product,
+            ),
+            PriceTag(price: product.price),
           ],
         ),
       ),
@@ -83,8 +90,10 @@ class NotAvailable extends StatelessWidget {
 }
 
 class PriceTag extends StatelessWidget {
+  final double price;
   const PriceTag({
     Key? key,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -100,7 +109,7 @@ class PriceTag extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Text(
-              '\$103,99',
+              '\$$price',
               style: _textStyle(),
             ),
           ),
@@ -126,30 +135,37 @@ class PriceTag extends StatelessWidget {
 }
 
 class BackgroundImg extends StatelessWidget {
+  final String? img;
   const BackgroundImg({
     Key? key,
+    this.img,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(25),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: 400,
-        color: Colors.red,
-        child: const FadeInImage(
-          image: NetworkImage('https://via.placeholder.com/400x300/f6f6f6'),
-          placeholder: AssetImage('assets/no-image.png'),
-          fit: BoxFit.cover,
-        ),
+        child: img == null
+            ? const Image(
+                image: AssetImage('assets/no-image.png'),
+                fit: BoxFit.cover,
+              )
+            : FadeInImage(
+                image: NetworkImage(img!),
+                placeholder: const AssetImage('assets/no-image.png'),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
 }
 
 class ProductInfo extends StatelessWidget {
-  const ProductInfo({Key? key}) : super(key: key);
+  final Product product;
+  const ProductInfo({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -162,10 +178,10 @@ class ProductInfo extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
-              'Hard Drive C:',
-              style: TextStyle(
+              product.name,
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -174,8 +190,8 @@ class ProductInfo extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              'id: 123456789',
-              style: TextStyle(
+              'id: ${product.id}',
+              style: const TextStyle(
                 fontSize: 15,
                 color: Colors.white,
               ),

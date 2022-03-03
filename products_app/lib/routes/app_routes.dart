@@ -10,6 +10,8 @@ class AppRoutes {
     RouteScreen(routeName: HomeScreen.routeName, screen: const HomeScreen()),
     RouteScreen(routeName: LoginScreen.routeName, screen: const LoginScreen()),
     RouteScreen(
+        routeName: LoadingScreen.routeName, screen: const LoadingScreen()),
+    RouteScreen(
         routeName: ProductScreen.routeName, screen: const ProductScreen()),
   ];
 
