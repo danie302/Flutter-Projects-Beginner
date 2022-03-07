@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProductImg extends StatelessWidget {
-  const ProductImg({Key? key}) : super(key: key);
+  final String? img;
+  const ProductImg({Key? key, this.img}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +12,14 @@ class ProductImg extends StatelessWidget {
         decoration: _boxDecoration(),
         width: double.infinity,
         height: 450,
-        child: const ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(45),
-            topRight: Radius.circular(45),
-          ),
-          child: FadeInImage(
-            image: NetworkImage('https://via.placeholder.com/400x300/green'),
-            placeholder: AssetImage('assets/jar-loading.gif'),
-            fit: BoxFit.cover,
+        child: Opacity(
+          opacity: 0.9,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(45),
+              topRight: Radius.circular(45),
+            ),
+            child: getImage(img),
           ),
         ),
       ),
@@ -27,7 +27,7 @@ class ProductImg extends StatelessWidget {
   }
 
   BoxDecoration _boxDecoration() => BoxDecoration(
-        color: Colors.red,
+        color: Colors.black,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(45),
           topRight: Radius.circular(45),
@@ -40,4 +40,27 @@ class ProductImg extends StatelessWidget {
           )
         ],
       );
+}
+
+Widget getImage(String? img) {
+  if (img == null) {
+    return const Image(
+      image: AssetImage('assets/no-image.png'),
+      fit: BoxFit.cover,
+    );
+  }
+
+  if (img.startsWith('http')) {
+    return FadeInImage(
+      image: NetworkImage(img),
+      placeholder: const AssetImage('assets/jar-loading.gif'),
+      fit: BoxFit.cover,
+    );
+  } else {
+    return FadeInImage(
+      image: AssetImage(img),
+      placeholder: const AssetImage('assets/jar-loading.gif'),
+      fit: BoxFit.cover,
+    );
+  }
 }

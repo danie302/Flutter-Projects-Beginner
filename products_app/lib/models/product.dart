@@ -19,6 +19,13 @@ class Product {
   bool available;
   String? picture;
 
+  factory Product.empty() => Product(
+        id: null,
+        name: '',
+        price: 0,
+        available: false,
+      );
+
   factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
@@ -36,4 +43,12 @@ class Product {
         "picture": picture,
         "price": price,
       };
+
+  Product copy() => Product(
+        id: id,
+        name: name,
+        price: price,
+        available: available,
+        picture: picture,
+      );
 }

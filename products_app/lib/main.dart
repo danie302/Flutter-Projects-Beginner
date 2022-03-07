@@ -11,6 +11,7 @@ void main() => {
             ChangeNotifierProvider(create: (_) => AuthProvider()),
             ChangeNotifierProvider(create: (_) => ThemeProvider()),
             ChangeNotifierProvider(create: (_) => ProductsProvider()),
+            ChangeNotifierProvider(create: (_) => ProductFormProvider()),
           ],
           child: const MyApp(),
         ),
