@@ -6,10 +6,10 @@ import 'package:products_app/widgets/widgets.dart';
 import 'package:products_app/screens/screens.dart';
 import 'package:products_app/provider/auth_provider.dart';
 
-class LoginScreen extends StatelessWidget {
-  static const String routeName = 'login';
+class RegisterScreen extends StatelessWidget {
+  static const String routeName = 'register';
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,11 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: 10),
                     Text(
-                      'Login',
+                      'Create an account',
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     const SizedBox(height: 30),
-                    const _LoginForm(),
+                    const _RegisterForm(),
                     const SizedBox(height: 50),
                     TextButton(
                       onPressed: () {
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                       },
                       style: _textButtonStyle(),
                       child: const Text(
-                        'Create new account',
+                        'Already have an account',
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black87,
@@ -69,15 +69,15 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
-  const _LoginForm({Key? key}) : super(key: key);
+class _RegisterForm extends StatelessWidget {
+  const _RegisterForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Form(
-      key: authProvider.loginFormKey,
+      key: authProvider.registerFormKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(children: [
         TextFormField(
@@ -101,7 +101,7 @@ class _LoginForm extends StatelessWidget {
         TextFormField(
           obscureText: true,
           autocorrect: false,
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.visiblePassword,
           onChanged: (value) => authProvider.password = value,
           decoration: InputDecorations.authInputDecoration(
             icon: Icons.lock_outline_sharp,
@@ -120,12 +120,13 @@ class _LoginForm extends StatelessWidget {
               ? null
               : () async {
                   FocusScope.of(context).unfocus();
-                  if (!authProvider.isLoginValidForm()) return;
+                  if (!authProvider.isRegisterValidForm()) return;
                   authProvider.isLoading = true;
-                  final token = await authProvider.login();
+                  final errorMsg = await authProvider.register();
                   authProvider.isLoading = false;
-                  if (token != null) return;
-                  Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                  if (errorMsg != null) return;
+                  Navigator.pushReplacementNamed(
+                      context, LoginScreen.routeName);
                 },
           disabledColor: Colors.grey,
           shape: RoundedRectangleBorder(
@@ -135,7 +136,7 @@ class _LoginForm extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
             child: Text(
-              authProvider.isLoading ? 'Loading...' : 'Login',
+              authProvider.isLoading ? 'Loading...' : 'Register',
               style: const TextStyle(color: Colors.white),
             ),
           ),

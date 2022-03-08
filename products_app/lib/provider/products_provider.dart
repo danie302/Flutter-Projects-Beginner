@@ -59,12 +59,10 @@ class ProductsProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     _image = File.fromUri(Uri(path: path));
-    if (_image != null) {
-      final String? imgUrl =
-          await ProductsRepo.uploadImg(_image, selectedProduct.id!);
-      if (imgUrl != null) {
-        selectedProduct.picture = imgUrl;
-      }
+    final String? imgUrl =
+        await ProductsRepo.uploadImg(_image, selectedProduct.id!);
+    if (imgUrl != null) {
+      selectedProduct.picture = imgUrl;
     }
     isLoading = false;
     notifyListeners();

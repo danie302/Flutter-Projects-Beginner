@@ -96,6 +96,7 @@ class _ProductForm extends StatelessWidget {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a name';
                     }
+                    return null;
                   },
                   decoration: InputDecorations.authInputDecoration(
                     labelText: 'Name:',
@@ -110,7 +111,11 @@ class _ProductForm extends StatelessWidget {
                         RegExp(r'^(\d+)?\.?\d{0,2}'))
                   ],
                   onChanged: (value) {
-                    productForm.price = double.parse(value);
+                    if (value.isEmpty) {
+                      productForm.price = 0;
+                    } else {
+                      productForm.price = double.parse(value);
+                    }
                   },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -119,6 +124,7 @@ class _ProductForm extends StatelessWidget {
                     if (double.tryParse(value) == null || value == '') {
                       return 'Please enter a valid price';
                     }
+                    return null;
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecorations.authInputDecoration(

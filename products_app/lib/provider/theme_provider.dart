@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
+import 'package:products_app/preferences.dart';
 import 'package:products_app/themes/app_theme.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  bool isDarkMode = false;
+  bool _isDarkMode = false;
+
+  ThemeProvider() {
+    _isDarkMode = Preferences.darkMode;
+  }
 
   setLightMode() {
-    isDarkMode = false;
+    _isDarkMode = false;
+    Preferences.darkMode = false;
     notifyListeners();
   }
 
   setDarkMode() {
-    isDarkMode = true;
+    _isDarkMode = true;
+    Preferences.darkMode = true;
     notifyListeners();
   }
 
-  ThemeData currenteTheme() {
-    return isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
+  ThemeData currentTheme() {
+    return _isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
   }
 }

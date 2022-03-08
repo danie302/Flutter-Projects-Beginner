@@ -4,15 +4,33 @@ import 'package:products_app/models/models.dart';
 import 'package:products_app/screens/screens.dart';
 
 class AppRoutes {
-  static const initialRoute = HomeScreen.routeName;
+  static const initialRoute = CheckAuthScreenScreen.routeName;
 
   static final routesList = <RouteScreen>[
-    RouteScreen(routeName: HomeScreen.routeName, screen: const HomeScreen()),
-    RouteScreen(routeName: LoginScreen.routeName, screen: const LoginScreen()),
     RouteScreen(
-        routeName: LoadingScreen.routeName, screen: const LoadingScreen()),
+      routeName: HomeScreen.routeName,
+      screen: const HomeScreen(),
+    ),
     RouteScreen(
-        routeName: ProductScreen.routeName, screen: const ProductScreen()),
+      routeName: LoginScreen.routeName,
+      screen: const LoginScreen(),
+    ),
+    RouteScreen(
+      routeName: CheckAuthScreenScreen.routeName,
+      screen: const CheckAuthScreenScreen(),
+    ),
+    RouteScreen(
+      routeName: RegisterScreen.routeName,
+      screen: const RegisterScreen(),
+    ),
+    RouteScreen(
+      routeName: LoadingScreen.routeName,
+      screen: const LoadingScreen(),
+    ),
+    RouteScreen(
+      routeName: ProductScreen.routeName,
+      screen: const ProductScreen(),
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {

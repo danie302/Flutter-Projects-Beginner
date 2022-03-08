@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:products_app/models/models.dart';
 
 class ProductsRepo {
-  static String baseUrl = 'flutter-chat-310320-default-rtdb.firebaseio.com';
+  static String baseUrl = 'flutterprojects-8a979-default-rtdb.firebaseio.com';
   static String imgUrl =
       'https://api.cloudinary.com/v1_1/ddazaj/image/upload?upload_preset=blugvga6';
 
