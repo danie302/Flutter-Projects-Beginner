@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:products_app/preferences.dart';
 import 'package:products_app/routes/app_routes.dart';
 import 'package:products_app/provider/providers.dart';
+import 'package:products_app/repositories/repositories.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       routes: AppRoutes.getAppRoutes(),
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.initialRoute,
+      scaffoldMessengerKey: NotificationRepo.messengerKey,
       theme: Provider.of<ThemeProvider>(context).currentTheme(),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_app/repositories/repositories.dart';
 import 'package:provider/provider.dart';
 
 import 'package:products_app/styles/styles.dart';
@@ -122,9 +123,11 @@ class _LoginForm extends StatelessWidget {
                   FocusScope.of(context).unfocus();
                   if (!authProvider.isLoginValidForm()) return;
                   authProvider.isLoading = true;
-                  final token = await authProvider.login();
+                  final errorMsg = await authProvider.login();
                   authProvider.isLoading = false;
-                  if (token != null) return;
+                  if (errorMsg != null) {
+                    return NotificationRepo.showMessage(errorMsg);
+                  }
                   Navigator.pushReplacementNamed(context, HomeScreen.routeName);
                 },
           disabledColor: Colors.grey,
